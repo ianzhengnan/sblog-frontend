@@ -6,35 +6,56 @@
     <title>Login</title>
     <script>
 
-        function submitForm(){
-            var username = $("#username").val();
-            var password = $("#password").val();
+        $(document).ready(function(){
 
-            var msg = "";
+            $("#login-submit-btn").click(function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                var msg = "";
 
-            if(!/^\w{2,20}$/.test(username)){
-                msg = "登录名长度必须是6~20之间";
-            }else if(!/^\w{4,20}$/.test(password)){
-                msg = "密码长度必须是6~20之间";
-            }
-            if(msg !=""){
-                alert(msg);
-                return false;
-            }else{
-                return true;
-            }
-        }
+                if(!/^\w{2,20}$/.test(username)){
+                    msg = "登录名长度必须是6~20之间";
+                }else if(!/^\w{4,20}$/.test(password)){
+                    msg = "密码长度必须是6~20之间";
+                }
+                if(msg !=""){
+                    alert(msg);
+                    return false;
+                }else{
+                    $.ajax({
+                        url: "http://www.sblog.com:8090/account/login",
+                        data: {
+                            username: username,
+                            password: password
+                        },
+                        method: 'POST',
+                        cache: false,
+                        xhrFields: { //这里一定要加，不然后台的cookie是不会写到前台的浏览器里的
+                            withCredentials: true
+                        },
+                        success: function (result) {
+                            console.log(result)
+                            window.location.href = '/';
+                        },
+                        error: function (result) {
+                            alert(result);
+                        }
+                    });
+                }
 
+            });
+
+        });
 
     </script>
 
 </head>
 <body>
-<form id="loginForm" action="http://www.sblog.com:8090/account/login" method="post" onsubmit="return submitForm()">
+<form id="loginForm" method="post">
     User name: <input id="username" name="username"><br>
     Password: <input id="password" type="password" name="password"><br>
-    <button id="login-submit-btn">Submit</button>
 </form>
+<button id="login-submit-btn">Submit</button>
 <br>
 <a href="http://www.sblog.com:8090/account/signup?show=1">Signup</a>
 </body>
