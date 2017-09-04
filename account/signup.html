@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+
+</head>
+<body>
+
+<form id="signup" v-on:submit.prevent="onSubmit">
+    用户名: <input id="username" name="username" v-model="username"><br>
+    密码: <input id="password" type="password" name="password" v-model="password"><br>
+    email: <input id="email" name="email" v-model="email"><br>
+    <button>Sign up</button>
+</form>
+
+
+<!---------------------------------------------------------------------------------------------->
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/vue.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: '#signup',
+        data: {
+            username: '',
+            password: '',
+            email: ''
+        },
+        methods: {
+            onSubmit: function () {
+
+                if (this.username === '' ){
+                    alert('Please enter user name.');
+                    return false;
+                }
+
+                $.ajax({
+                    url: "http://www.sblog.com:8090/account/signup",
+                    data: {
+                        username: this.username,
+                        password: this.password,
+                        email: this.email
+                    },
+                    method: 'POST',
+                    cache: false,
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function () {
+                        window.location.href = '/';
+                    },
+                    error: function (result) {
+                        alert(result);
+                    }
+                });
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
