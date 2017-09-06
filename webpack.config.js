@@ -34,11 +34,7 @@ module.exports = {
 		historyApiFallback: true,
 		disableHostCheck: false,
 		noInfo: true,
-		host: "www.sblog-front.com",
-		allowedHosts: [
-			'www.sblog.com',
-			'www.sblog.com:8090'
-		]
+		host: "www.sblog-front.com"
 	},
 	devtool: '#eval-source-map'
 }

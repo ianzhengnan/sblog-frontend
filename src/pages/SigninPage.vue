@@ -43,7 +43,7 @@ export default {
                     withCredentials: true
                 },
                 success: function () {
-                    window.location.href = '/';
+                    // window.location.href = '/';
                 },
                 error: function (result) {
                     alert(result);
