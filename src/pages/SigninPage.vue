@@ -32,11 +32,10 @@ export default {
             }
 
             $.ajax({
-                url: "http://www.sblog.com:8090/account/signin",
+                url: "http://www.sblog.com:8090/account/login",
                 data: {
                     username: this.username,
-                    password: this.password,
-                    email: this.email
+                    password: this.password
                 },
                 method: 'POST',
                 cache: false,
