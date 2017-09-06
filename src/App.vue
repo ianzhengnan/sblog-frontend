@@ -11,7 +11,7 @@
 
 
 <script type="text/javascript">
-	import HeadBar from '@/components/HeaderBar'
+	import HeaderBar from './components/Headerbar.vue'
 	export default {
 		components: {
 			HeaderBar
