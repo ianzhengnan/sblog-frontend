@@ -32,9 +32,9 @@ module.exports = {
 	},
 	devServer: {
 		historyApiFallback: true,
-		disableHostCheck: false,
-		noInfo: true,
-		host: "www.sblog-front.com"
+		disableHostCheck: true,
+		noInfo: true
+		// host: "www.sblog-front.com"
 	},
 	devtool: '#eval-source-map'
 }
