@@ -11,7 +11,7 @@
 
 export default {
 
-	data () {
+	data: function () {
 		return {
 			username: '',
 			password: ''
