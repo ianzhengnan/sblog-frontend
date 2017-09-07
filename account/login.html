@@ -33,9 +33,10 @@
                         xhrFields: { //这里一定要加，不然后台的cookie是不会写到前台的浏览器里的
                             withCredentials: true
                         },
+                        crossDomain: true,
                         success: function (result) {
                             console.log(result)
-                            window.location.href = '/';
+                            // window.location.href = '/';
                         },
                         error: function (result) {
                             alert(result);

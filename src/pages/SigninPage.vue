@@ -42,6 +42,7 @@ export default {
                 xhrFields: {
                     withCredentials: true
                 },
+                crossDomain: true,
                 success: function () {
                     // window.location.href = '/';
                 },
