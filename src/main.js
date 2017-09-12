@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import App from './App.vue'
 import router from './router'
+import App from './App.vue'
 
-new Vue({
+var app = new Vue({
 	el: '#app',
 	router,
 	template: '<App/>',
