@@ -1,8 +1,8 @@
 <template>
 	<div class="menu-links">
 		<router-link to="/">Home</router-link>
-		<router-link to="/signin">Signin</router-link>
-		<router-link to="/signup">Signup</router-link>
+		<router-link to="/signin" v-if="!signoffseen">Signin</router-link>
+		<router-link to="/signup" v-if="!signoffseen">Signup</router-link>
 		<a id="signoff" v-if="signoffseen" v-on:click="onClickSignOff" href="javascript:void(0);">Signoff</a>
 	</div>
 </template>
@@ -11,14 +11,15 @@
 	
 export default {
 
-	data: function(){
-		return {
-			signoffseen: true
-		};
+	computed: {
+		signoffseen (){
+			return this.$store.state.username !== '' ? true : false
+		}
 	},
 
 	methods: {
 		onClickSignOff: function() {
+			var that = this;
 			$.ajax({
 				url: 'http://www.sblog.com:8090/account/logout',
 				method: 'GET',
@@ -26,7 +27,8 @@ export default {
             		withCredentials: true
             	},
             	success: function(){
-            		window.location.href = '/signin';
+            		that.$store.dispatch("setUsername", "");
+            		that.$root.$router.push({name: 'signin'});
             	},
             	error: function(result){
             		console.error(result);

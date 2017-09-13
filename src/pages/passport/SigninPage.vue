@@ -21,6 +21,8 @@ export default {
     methods: {
         onSubmit: function () {
 
+            var that = this;
+
             if (this.username === '' ){
                 alert('Please enter user name.');
                 return false;
@@ -44,7 +46,8 @@ export default {
                 },
                 crossDomain: true,
                 success: function () {
-                    window.location.href = '/';
+                    that.$store.dispatch('setUsername', that.username)
+                    that.$root.$router.push({name: 'home'})
                 },
                 error: function (result) {
                     alert(result);

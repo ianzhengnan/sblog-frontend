@@ -1,7 +1,7 @@
 <template>
 	<div>
 		This is Home. <br>    <!-- Only allow one div call root tag exist -->
-		<router-link :to="{ name:'articles', params:{ userId: 'jan' }}">Articles</router-link>
+		<router-link :to="{ name:'articles', params:{ userId: this.$store.state.username }}">Articles</router-link>
 	</div>
 		
 </template>
