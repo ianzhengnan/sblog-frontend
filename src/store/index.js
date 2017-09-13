@@ -3,10 +3,13 @@ import Vue from 'vue'
 
 Vue.use(Vuex)
 
+const BACKEND_URL = 'http://www.sblog.com:8090';
+
 export default new Vuex.Store({
 
 	state: {
-		username: ''
+		username: '',
+		backendurl: BACKEND_URL
 	},
 
 	mutations: {

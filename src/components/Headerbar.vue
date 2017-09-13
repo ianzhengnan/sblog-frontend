@@ -17,6 +17,11 @@ export default {
 		}
 	},
 
+	created (){
+		if(this.$store.state.username === "")
+			this.$root.$router.push({ name: 'signin' })
+	},
+
 	methods: {
 		onClickSignOff: function() {
 			var that = this;

@@ -5,6 +5,7 @@ import SigninPage from '../pages/passport/SigninPage.vue'
 import SignupPage from '../pages/passport/SignupPage.vue'
 import ArticlesPage from '../pages/article/ArticlesPage.vue'
 import ArticlePage from '../pages/article/ArticlePage.vue'
+import AddArticle from '../pages/article/AddArticle.vue'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
 			path: '/:userId/article/:articleId',
 			name: 'article',
 			component: ArticlePage
+		},
+		{
+			path: '/:userId/article/new',
+			name: 'new-article',
+			component: AddArticle
 		}
 
 	]
