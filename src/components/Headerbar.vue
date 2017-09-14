@@ -18,8 +18,10 @@ export default {
 	},
 
 	created (){
-		if(this.$store.state.username === "")
+		if(this.$store.state.username === ""){
+			// this.onClickSignOff()
 			this.$root.$router.push({ name: 'signin' })
+		}
 	},
 
 	methods: {

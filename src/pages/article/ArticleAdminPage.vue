@@ -6,41 +6,50 @@
 		loading...
 	</div>
 	<div class="main" v-if="!loading">
-		<table width="600">
+		<table width="800">
 			<tr>
-				<th width="70%">Subject</th>
-				<th colspan="3" width="30%">Opt</th>
+				<th width="70%">主题</th>
+				<th colspan="3" width="30%">操作</th>
 			</tr>
 			<tr v-for="art in articles">
-				<td>{{art.top === '1' ? '[top]' + art.subject : art.subject }}</td>
+				<td>{{art.top === '1' ? '[置顶]' + art.subject : art.subject }}</td>
 				<td>
 					<!-- don't use this.username, just 'username' is fine -->
 					<router-link 
 						:to="{ name: 'edit-article', params:{ userId: username, articleId: art.id}}">
-					Edit	
+					编辑	
 				</router-link></td>
-				<td><a href="javascript:void(0);" @click="pressTopBtn(art.id, art.top)">{{ art.top === '1' ? 'Untop':'Top'}}</a></td>
-				<td><a href="javascript:void(0);" @click="pressDelBtn(art.id)">Del</a></td>
+				<td><a href="javascript:void(0);" @click="pressTopBtn(art.id, art.top)">{{ art.top === '1' ? '取消置顶':'置顶'}}</a></td>
+				<td><a href="javascript:void(0);" @click="pressDelBtn(art.id)">删除</a></td>
 			</tr>
 		</table>
+		<simple-pageing></simple-pageing>
 	</div>
 </div>
 
 </template>
 
 <script type="text/javascript">
-	
+
+import SimplePaging from '../../components/SimplePagination.vue'
+
 export default {
+
+	components: {
+		'simple-pageing': SimplePaging
+	},
 
 	data () {
 		return {
 			articles: [],
-			loading: false
+			loading: false,
+			pagemodel: null
 		}
 	},
 
 	created (){
 		this.fetchData()
+		this.getPageModel()
 	},
 
 	computed: {
@@ -50,7 +59,7 @@ export default {
 	},
 
 	methods: {
-		fetchData () {
+		fetchData (fn) {
 			this.loading = true
 
 			// ajax
@@ -61,9 +70,33 @@ export default {
 				xhrFields: {
 					withCredentials: true
 				},
+				data: {
+					page: this.pagemodel ? this.pagemodel.currentPage : 1
+				},
 				success: function (result) {
 					that.articles = result;
 					that.loading = false;
+					if(fn) fn()
+				},
+				error: function (err) {
+					console.error(err);
+				}
+			})
+
+			
+		},
+
+		getPageModel () {
+			// get page model
+			var that = this
+			$.ajax({
+				url: this.$store.state.backendurl + '/getPageModel',
+				method: 'GET',
+				xhrFields: {
+					withCredentials: true
+				},
+				success: function (result) {
+					that.pagemodel = result;
 				},
 				error: function (err) {
 					console.error(err);
@@ -107,7 +140,8 @@ export default {
 					withCredentials: true
 				},
 				success: function (result) {
-					that.fetchData();
+					that.pagemodel.currentPage = 1;
+					that.fetchData(that.getPageModel);
 				},
 				error: function (err) {
 					console.error(err);
