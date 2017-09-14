@@ -7,6 +7,9 @@
 		<div>
 			<router-link :to="{ name:'new-article', params:{ userId: this.$store.state.username }}">New</router-link>
 		</div>
+		<div>
+			<router-link :to="{ name:'admin-article', params:{ userId: this.$store.state.username }}">Manage Articles</router-link>
+		</div>
 	</div>
 		
 </template>

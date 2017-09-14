@@ -41,9 +41,9 @@ export default {
 				id: null,
 				category: {id: ''},
 				subject: '',
-				content: '',
-				isPub: null
-			}
+				content: ''
+			},
+			isPub: null
 		}
 	},
 
@@ -56,8 +56,9 @@ export default {
 
 			// ajax
 			var that = this;
+			var oState = this.$store.state;
 			$.ajax({
-				url: this.$store.state.backendurl + '/category',
+				url: oState.backendurl + '/category',
 				method: 'GET',
 				xhrFields: {
             		withCredentials: true
@@ -70,6 +71,26 @@ export default {
             	}
 
 			})
+
+			if (oState.route.name === 'edit-article' && oState.route.params.articleId) {
+				// fetch article
+				$.ajax({
+					url: oState.backendurl + '/' + oState.username + '/article/' + oState.route.params.articleId,
+					method: 'GET',
+					xhrFields: {
+	            		withCredentials: true
+	            	},
+	            	success: function(result){
+	            		that.art.id = result.id;
+	            		that.art.category.id = result.category.id;
+	            		that.art.subject = result.subject;
+	            		that.art.content = result.content;
+	            	},
+	            	error: function(err){
+	            		console.log(err);
+	            	}
+				})
+			}
 		},
 
 		onSaveBtnPressed () {

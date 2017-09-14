@@ -6,6 +6,7 @@ import SignupPage from '../pages/passport/SignupPage.vue'
 import ArticlesPage from '../pages/article/ArticlesPage.vue'
 import ArticlePage from '../pages/article/ArticlePage.vue'
 import AddArticle from '../pages/article/AddArticle.vue'
+import ArticleAdmin from '../pages/article/ArticleAdminPage.vue'
 
 Vue.use(Router)
 
@@ -41,6 +42,16 @@ export default new Router({
 			path: '/:userId/article/new',
 			name: 'new-article',
 			component: AddArticle
+		},
+		{
+			path: '/:userId/article/:articleId/edit',
+			name: 'edit-article',
+			component: AddArticle
+		},
+		{
+			path: '/:userId/article/admin',
+			name: 'admin-article',
+			component: ArticleAdmin
 		}
 
 	]
