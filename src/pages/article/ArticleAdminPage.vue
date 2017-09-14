@@ -95,7 +95,24 @@ export default {
 		},
 
 		pressDelBtn (id) {
-
+			// ajax
+			var that = this
+			$.ajax({
+				url: this.$store.state.backendurl + '/del',
+				method: 'GET',
+				data: {
+					id: id
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				success: function (result) {
+					that.fetchData();
+				},
+				error: function (err) {
+					console.error(err);
+				}
+			})
 		}
 
 	}
