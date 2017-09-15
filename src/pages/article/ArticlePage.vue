@@ -27,13 +27,13 @@ export default {
 	data () {
 		return {
 			loading: false,
-			article: null,
-			// article: {
-			// 	subject: '',
-			// 	content: '',
-			// 	comments: [],
-			// 	commentCount: 0
-			// },
+			// article: null,
+			article: {
+				subject: '',
+				content: '',
+				comments: [],
+				commentCount: 0
+			},
 			error: null
 		}
 	},

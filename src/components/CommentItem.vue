@@ -2,7 +2,7 @@
 	
 <div>
 	<p><span style="font-weight:700;">{{ comment.createBy.username }}</span> | 
-	<span style="font-size: xx-small">{{ comment.createAt }}</span></p>
+	<span style="font-size: xx-small">{{ createAt }}</span></p>
 	<p>{{ comment.content }}</p>
 </div>
 
@@ -11,7 +11,14 @@
 <script type="text/javascript">
 	
 export default {
-	props: ['comment']
+	props: ['comment'],
+
+	computed: {
+		createAt () {
+			var date = new Date(parseInt(this.comment.createAt)).toLocaleString().replace(/:\d{1,2}$/,' ')
+			return date
+		}
+	}
 
 }
 
