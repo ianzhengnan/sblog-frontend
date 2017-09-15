@@ -48,8 +48,8 @@ export default {
 	},
 
 	created (){
-		this.fetchData()
-		this.getPageModel()
+		this.fetchData(this.getPageModel)
+		// this.getPageModel()
 	},
 
 	computed: {
