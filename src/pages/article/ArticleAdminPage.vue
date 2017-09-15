@@ -23,7 +23,8 @@
 				<td><a href="javascript:void(0);" @click="pressDelBtn(art.id)">删除</a></td>
 			</tr>
 		</table>
-		<simple-pageing></simple-pageing>
+		<!-- 绑定子组件的属性（传值给子组件），通过v-on监听子组件的事件，从而更新自己的数据 -->
+		<simple-pageing :pagemodel="pagemodel" @changepage="onPageChanged"></simple-pageing>
 	</div>
 </div>
 
@@ -43,13 +44,17 @@ export default {
 		return {
 			articles: [],
 			loading: false,
-			pagemodel: null
+			pagemodel: {
+				totalRecords: 0,
+				totalPage: 0,
+				currentPage: 0
+			}
 		}
 	},
 
 	created (){
-		this.fetchData(this.getPageModel)
-		// this.getPageModel()
+		// 先读取分页信息，再读取数据，否则会发生null issue 
+		this.getPageModel(this.fetchData)
 	},
 
 	computed: {
@@ -59,7 +64,7 @@ export default {
 	},
 
 	methods: {
-		fetchData (fn) {
+		fetchData () {
 			this.loading = true
 
 			// ajax
@@ -76,7 +81,7 @@ export default {
 				success: function (result) {
 					that.articles = result;
 					that.loading = false;
-					if(fn) fn()
+					// if(fn) fn()
 				},
 				error: function (err) {
 					console.error(err);
@@ -86,7 +91,7 @@ export default {
 			
 		},
 
-		getPageModel () {
+		getPageModel (fn) {
 			// get page model
 			var that = this
 			$.ajax({
@@ -97,6 +102,7 @@ export default {
 				},
 				success: function (result) {
 					that.pagemodel = result;
+					if (fn) fn()
 				},
 				error: function (err) {
 					console.error(err);
@@ -141,12 +147,17 @@ export default {
 				},
 				success: function (result) {
 					that.pagemodel.currentPage = 1;
-					that.fetchData(that.getPageModel);
+					that.getPageModel(that.fetchData)
 				},
 				error: function (err) {
 					console.error(err);
 				}
 			})
+		},
+
+		onPageChanged (currentPage){
+			this.pagemodel.currentPage = currentPage
+			this.fetchData()
 		}
 
 	}

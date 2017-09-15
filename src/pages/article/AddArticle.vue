@@ -143,6 +143,11 @@ export default {
             			that.art.id = result.key.id;
             			return;
             		}
+            		// error handling
+            		if(result.type === 'error'){
+            			// TO-DO: more hanlding 
+            			return;
+            		}
             		that.$root.$router.push({name: 'article', params: {userId: that.$store.state.username,
             			articleId: result.key.id}});
             	},
