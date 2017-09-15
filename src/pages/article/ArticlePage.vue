@@ -28,6 +28,7 @@ export default {
 		return {
 			loading: false,
 			// article: null,
+			// 不能直接使用上面的null赋初始值，因为组件会先于数据进行渲染，渲染子组件的时候数据还没有到。获取数据是异步的。
 			article: {
 				subject: '',
 				content: '',

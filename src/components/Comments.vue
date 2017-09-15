@@ -24,7 +24,7 @@ export default {
 	components: {
 		'comment-item': CommentItem
 	},
-
+	// 尽量直接使用prop里的变量，如：this.article, this.comments.不要通过data再赋值给本地变量了，因为这样会导致数据不同步问题。
 	props: ['article', 'comments'],
 
 	data () {
