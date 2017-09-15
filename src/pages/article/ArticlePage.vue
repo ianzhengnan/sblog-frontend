@@ -7,58 +7,90 @@
 		{{ error }}
 	</div>
 	<div class="article" v-if="!loading">
-		<h1>{{ subject }}</h1>
-		<div class="content">{{ content }}</div>
-	</div>	
+		<h1>{{ article.subject }}</h1>
+		<div class="content">{{ article.content }}</div>
+	</div>
+	<my-comment :article="article" :comments="article.comments" @postcomment="onCommentChanged"></my-comment>
 </div>
 </template>
 
 <script type="text/javascript">
-	
+
+import CommentsFragment from '../../components/Comments.vue'
+
 export default {
+
+	components: {
+		'my-comment': CommentsFragment
+	},
 
 	data () {
 		return {
 			loading: false,
-			content: '',
-			title: '',
+			article: null,
+			// article: {
+			// 	subject: '',
+			// 	content: '',
+			// 	comments: [],
+			// 	commentCount: 0
+			// },
 			error: null
 		}
 	},
-
-	computed: { 
-		hasData (){
-			return this.subject === "" ? false : true
-		}
-	},
-
+	// 导航完成后获取数据
 	created () {
 		this.fetchData()
 	},
 
+	// // 在导航完成前获取数据， 这里不能用this
+	// beforeRouteEnter(to, from, next){
+	// 	// ajax
+	// 	$.ajax({
+	// 		url: 'http://www.sblog.com:8090/' + to.params.userId + '/article/' + to.params.articleId,
+	// 		method: 'GET',
+	// 		xhrFields: {
+ //        		withCredentials: true
+ //        	},
+ //        	success: function(result){
+ //        		console.log(result);
+ //        		next(vm => {
+ //        			vm.article = result
+ //        		});
+ //        	},
+ //        	error: function(err){
+ //        		next(false);
+ //        	}
+	// 	})
+	// },
+
+	// watch: {
+	// 	$route () {
+	// 		console.log("breakpoint")
+	// 	}
+	// },
+
 	methods: {
-		fetchData (){
-			this.loading = true
-			this.error = null
-			this.subject = this.content = ''
-			// ajax
+		fetchData () {
+
 			var that = this
+
 			$.ajax({
-				url: 'http://www.sblog.com:8090/' + window.location.pathname,
+				url: this.$store.state.backendurl + '/' + this.$route.params.userId + '/article/' + this.$route.params.articleId,
 				method: 'GET',
 				xhrFields: {
-            		withCredentials: true
-            	},
-            	success: function(result){
-            		that.loading = false
-            		that.subject = result.subject.toString()
-            		that.content = result.content.toString()
-            	},
-            	error: function(err){
-            		that.loading = false
-            		that.error = err.toString()
-            	}
+	        		withCredentials: true
+	        	},
+	        	success: function(result){
+	       			that.article = null
+	        		that.article = result
+	        	},
+	        	error: function(err){
+	        		console.error(err);
+	        	}
 			})
+		},
+		onCommentChanged () {
+			this.fetchData()
 		}
 	}
 }
