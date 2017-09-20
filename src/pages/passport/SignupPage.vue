@@ -1,16 +1,22 @@
 <template>
-	<form id="signup" v-on:submit.prevent="onSubmit">
-		用户名：&nbsp;&nbsp;<input type="text" name="username" v-model="username"><br>
-		密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" v-model="password"><br>
-		重输密码：<input type="password" name="password-repeat" v-model="passwordRepeat"><br>
-		邮箱地址：<input type="text" name="email" v-model="email">
-		<button>Sign up</button>
+	<form id="signup" class="form-signin" v-on:submit.prevent="onSubmit">
+		<h2 class="form-signin-heading">Please sign up</h2>
+		<label for="username" class="sr-only">User name</label>
+		<input id="username" type="text" class="form-control" v-model="username" placeholder="Please input your user name" required autofocus>
+		<label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" v-model="email" class="form-control" placeholder="Please input email...." required>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" v-model="password" placeholder="Password" required>
+		<label for="repeatPassword" class="sr-only">Repeat Password</label>
+    <input type="password" id="repeatPassword" class="form-control" v-model="passwordRepeat" placeholder="Please input password again" required>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 	</form>
 </template>
 
 
 <script type="text/javascript">
-	
+
 export default {
 	data: function(){
 		return {
@@ -44,7 +50,7 @@ export default {
                 alert('Please enter email.');
                 return false;
             }
-            
+
 
             $.ajax({
             	url: 'http://www.sblog.com:8090/account/signup',

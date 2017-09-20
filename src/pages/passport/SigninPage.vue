@@ -101,12 +101,29 @@ body {
 }
 .form-signin input[type="email"] {
   margin-bottom: -1px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+#inputPassword {
+  #margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
+
+#repeatPassword {
+	margin-bottom: 10px;
+	margin-top: -1px;
+	border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 </style>
